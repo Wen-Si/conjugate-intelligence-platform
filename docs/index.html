@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共轭智能 - 全球投资策略平台</title>
+    <meta name="description" content="共轭智能全球投资策略平台 - 基于AI的量化投资策略管理与分析系统">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <!-- ==================== 顶部导航栏 ==================== -->
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="App.navigate('home')">
+            <div class="brand-icon">CJ</div>
+            <span class="brand-text">共轭智能</span>
+        </div>
+
+        <ul class="navbar-nav" id="navbar-nav">
+            <li><a class="nav-link active" data-route="home" href="#home">首页</a></li>
+            <li><a class="nav-link" data-route="strategies" href="#strategies">策略中心</a></li>
+            <li><a class="nav-link" data-route="analysis" href="#analysis">数据分析</a></li>
+            <li><a class="nav-link" data-route="about" href="#about">关于我们</a></li>
+        </ul>
+
+        <div class="navbar-actions">
+            <div class="user-info" id="user-info">
+                <div class="user-avatar">U</div>
+                <span class="user-name">用户</span>
+                <button class="btn btn-ghost btn-sm" id="logout-btn">退出</button>
+            </div>
+            <button class="btn btn-primary btn-sm" id="auth-btn">
+                登录 / 注册
+            </button>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="document.getElementById('navbar-nav').classList.toggle('mobile-open')">
+                &#9776;
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== 主内容区域 ==================== -->
+    <main class="main-content">
+
+        <!-- ===== 首页 ===== -->
+        <div class="page-view active" id="page-home">
+            <!-- Hero 区域 -->
+            <section class="hero-section">
+                <h1 class="hero-title">
+                    AI驱动的<span class="highlight">全球投资策略</span>平台
+                </h1>
+                <p class="hero-subtitle">
+                    共轭智能融合前沿人工智能技术与深度量化分析，为投资者提供全方位的策略管理、数据分析和风险控制解决方案，助力实现资产稳健增值。
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg" onclick="App.navigate('strategies')">浏览策略</button>
+                    <button class="btn btn-secondary btn-lg" onclick="App.navigate('analysis')">数据分析</button>
+                </div>
+            </section>
+
+            <!-- 统计数据 -->
+            <section class="stats-section">
+                <div class="stats-grid" id="home-stats">
+                    <!-- 由 JS 动态渲染 -->
+                </div>
+            </section>
+
+            <!-- 核心功能 -->
+            <section class="features-section">
+                <div class="section-header">
+                    <h2 class="section-title">核心功能</h2>
+                    <p class="section-desc">全方位覆盖投资策略生命周期，从研究到执行，从分析到优化</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3 class="feature-title">AI策略引擎</h3>
+                        <p class="feature-desc">基于深度学习和强化学习的策略生成引擎，自动发现市场规律，构建高胜率交易策略。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">智能数据分析</h3>
+                        <p class="feature-desc">上传您的投资数据，平台自动进行多维度分析，生成收益曲线、回撤报告和风险评估。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 class="feature-title">风险管理系统</h3>
+                        <p class="feature-desc">实时监控组合风险暴露，动态调整仓位和止损策略，有效控制最大回撤和尾部风险。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3 class="feature-title">全球市场覆盖</h3>
+                        <p class="feature-desc">支持A股、港股、美股、期货、期权等多市场多品种策略，实现真正的全球资产配置。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">实时行情接入</h3>
+                        <p class="feature-desc">毫秒级行情数据处理，支持高频策略回测和实盘信号推送，把握每一个交易机会。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3 class="feature-title">AI智能助手</h3>
+                        <p class="feature-desc">内置AI对话助手，随时为您解答投资疑问，提供市场洞察和策略建议。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门策略 -->
+            <section class="hot-strategies-section">
+                <div class="section-header">
+                    <h2 class="section-title">热门策略</h2>
+                    <p class="section-desc">精选表现优异的量化策略，供您参考选择</p>
+                </div>
+                <div class="strategy-list" id="home-hot-strategies">
+                    <!-- 由 JS 动态渲染 -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== 策略中心 ===== -->
+        <div class="page-view" id="page-strategies">
+            <div class="strategies-page">
+                <div class="strategies-header">
+                    <h1>策略中心</h1>
+                    <div class="strategies-filters">
+                        <button class="category-filter active" data-category="all">全部</button>
+                        <button class="category-filter" data-category="stock">股票策略</button>
+                        <button class="category-filter" data-category="bond">债券策略</button>
+                        <button class="category-filter" data-category="option">期权策略</button>
+                        <button class="category-filter" data-category="futures">期货策略</button>
+                        <div class="search-box">
+                            <span class="search-icon">&#128269;</span>
+                            <input type="text" id="strategy-search" placeholder="搜索策略名称、标签...">
+                        </div>
+                    </div>
+                </div>
+                <div class="strategy-list" id="strategy-list">
+                    <!-- 由 JS 动态渲染 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 数据分析 ===== -->
+        <div class="page-view" id="page-analysis">
+            <div class="analysis-page">
+                <h1>数据分析</h1>
+
+                <!-- 分析配置 -->
+                <div class="analysis-config">
+                    <!-- 文件上传 -->
+                    <div class="config-card">
+                        <h3>&#128196; 数据文件上传</h3>
+                        <div class="upload-dropzone" id="upload-dropzone">
+                            <div class="upload-icon">&#128228;</div>
+                            <p class="upload-text">拖拽文件到此处，或点击选择文件</p>
+                            <p class="upload-hint">支持 .xlsx、.xls、.csv 格式</p>
+                            <div class="upload-file-name" id="upload-file-name"></div>
+                        </div>
+                        <input type="file" id="file-input" accept=".xlsx,.xls,.csv" style="display: none;">
+                    </div>
+
+                    <!-- 策略选择 -->
+                    <div class="config-card">
+                        <h3>&#127919; 选择分析策略</h3>
+                        <div class="strategy-select-wrapper">
+                            <select id="analysis-strategy-select">
+                                <option value="">请选择策略...</option>
+                                <!-- 由 JS 动态填充 -->
+                            </select>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <h3 style="margin-bottom: 0.8rem;">&#9889; 分析说明</h3>
+                            <ul style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 2; padding-left: 1.2rem;">
+                                <li>上传包含历史行情数据的 Excel/CSV 文件</li>
+                                <li>选择一个投资策略进行分析</li>
+                                <li>系统将生成收益曲线、回撤分析、资产配置等图表</li>
+                                <li>分析结果包含关键风险收益指标</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 分析按钮 -->
+                <div class="analysis-actions">
+                    <button class="btn btn-primary btn-lg" id="analyze-btn">
+                        &#9889; 开始分析
+                    </button>
+                </div>
+
+                <!-- 分析结果 -->
+                <div class="analysis-results hidden" id="analysis-results">
+                    <div class="results-grid">
+                        <!-- 收益曲线 -->
+                        <div class="chart-card" style="position: relative;">
+                            <div class="chart-container">
+                                <canvas id="chart-return-curve"></canvas>
+                            </div>
+                        </div>
+                        <!-- 回撤分析 -->
+                        <div class="chart-card" style="position: relative;">
+                            <div class="chart-container">
+                                <canvas id="chart-drawdown"></canvas>
+                            </div>
+                        </div>
+                        <!-- 月度收益 -->
+                        <div class="chart-card" style="position: relative;">
+                            <div class="chart-container">
+                                <canvas id="chart-monthly"></canvas>
+                            </div>
+                        </div>
+                        <!-- 资产配置 -->
+                        <div class="chart-card" style="position: relative;">
+                            <div class="chart-container">
+                                <canvas id="chart-allocation"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 指标仪表盘 + 表格 -->
+                    <div class="results-grid">
+                        <div class="chart-card" style="position: relative;">
+                            <div class="chart-container">
+                                <canvas id="chart-metrics"></canvas>
+                            </div>
+                        </div>
+                        <div class="metrics-table-card">
+                            <h3>&#128202; 关键指标</h3>
+                            <table class="metrics-table">
+                                <tbody id="metrics-table-body">
+                                    <!-- 由 JS 动态渲染 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 加载遮罩 -->
+                    <div class="analysis-loading" id="analysis-loading">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">正在进行策略分析...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 关于我们 ===== -->
+        <div class="page-view" id="page-about">
+            <div class="about-page">
+                <h1>关于共轭智能</h1>
+
+                <div class="about-section">
+                    <h2>平台简介</h2>
+                    <p>
+                        共轭智能全球投资策略平台是一个融合人工智能与量化金融的前沿投资科技平台。我们致力于通过先进的机器学习算法和深度数据分析技术，为全球投资者提供专业、智能、高效的投资策略解决方案。
+                    </p>
+                    <p>
+                        "共轭"之名取自数学中的共轭梯度法，象征着我们在复杂市场环境中寻找最优解的核心理念。正如共轭梯度法在优化问题中展现出卓越效率，我们的平台也在投资策略的探索与优化中不断突破边界。
+                    </p>
+                </div>
+
+                <div class="about-section">
+                    <h2>技术实力</h2>
+                    <p>
+                        平台核心团队由来自顶级量化基金、科技公司和研究机构的资深专家组成，在机器学习、自然语言处理、时间序列分析和金融工程等领域拥有深厚积累。
+                    </p>
+                    <p>
+                        我们的技术栈涵盖深度学习（PyTorch/TensorFlow）、强化学习、自然语言处理、高性能计算等多个前沿领域，确保策略研发和执行始终处于行业领先水平。
+                    </p>
+                </div>
+
+                <div class="about-section">
+                    <h2>核心理念</h2>
+                    <div class="about-values">
+                        <div class="about-value-card">
+                            <div class="value-icon">&#128640;</div>
+                            <h3>技术创新</h3>
+                            <p>持续投入前沿AI技术研发，将最新学术成果转化为可落地的投资策略。</p>
+                        </div>
+                        <div class="about-value-card">
+                            <div class="value-icon">&#128170;</div>
+                            <h3>数据驱动</h3>
+                            <p>以数据为核心决策依据，消除人为情绪干扰，实现理性、纪律化投资。</p>
+                        </div>
+                        <div class="about-value-card">
+                            <div class="value-icon">&#129309;</div>
+                            <h3>合作共赢</h3>
+                            <p>与投资者建立长期信任关系，共享技术成果，实现可持续的价值增长。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h2>联系我们</h2>
+                    <p>
+                        如有任何问题或合作意向，欢迎通过平台右下角的AI助手与我们联系，或发送邮件至 contact@conjugate-intelligence.com。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="footer">
+        <p>&copy; 2025 共轭智能全球投资策略平台 &nbsp;|&nbsp; All Rights Reserved</p>
+    </footer>
+
+    <!-- ==================== 登录/注册模态框 ==================== -->
+    <div class="modal-overlay auth-modal" id="auth-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="auth-header">
+                <h2>欢迎来到共轭智能</h2>
+                <p>登录您的账户，探索智能投资策略</p>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">登录</button>
+                <button class="auth-tab" data-tab="register">注册</button>
+            </div>
+            <div class="auth-forms">
+                <!-- 登录表单 -->
+                <form class="auth-form active" id="form-login">
+                    <div class="form-group">
+                        <label for="login-username">用户名</label>
+                        <input type="text" id="login-username" placeholder="请输入用户名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">密码</label>
+                        <input type="password" id="login-password" placeholder="请输入密码" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary auth-submit">登录</button>
+                </form>
+                <!-- 注册表单 -->
+                <form class="auth-form" id="form-register">
+                    <div class="form-group">
+                        <label for="reg-username">用户名</label>
+                        <input type="text" id="reg-username" placeholder="请设置用户名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">邮箱</label>
+                        <input type="email" id="reg-email" placeholder="请输入邮箱地址" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">密码</label>
+                        <input type="password" id="reg-password" placeholder="请设置密码（至少4位）" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary auth-submit">注册</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 策略详情模态框 ==================== -->
+    <div class="modal-overlay strategy-detail-modal" id="strategy-detail-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="strategy-detail-content">
+                <!-- 由 JS 动态渲染 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 全局加载遮罩 ==================== -->
+    <div class="loading-overlay" id="global-loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">加载中...</div>
+    </div>
+
+    <!-- ==================== Toast 通知容器 ==================== -->
+    <div id="toast-container"></div>
+
+    <!-- ==================== AI 聊天对话框 ==================== -->
+    <div class="chat-widget">
+        <div class="chat-box" id="chat-box">
+            <div class="chat-header">
+                <div class="chat-header-avatar">&#129302;</div>
+                <div class="chat-header-info">
+                    <h4>共轭智能 AI 助手</h4>
+                    <span>在线</span>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- 由 JS 动态渲染 -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="输入您的问题...">
+                <button class="chat-send" id="chat-send">&#10148;</button>
+            </div>
+        </div>
+        <button class="chat-toggle" id="chat-toggle">
+            &#128172;
+            <span class="badge">1</span>
+        </button>
+    </div>
+
+    <!-- ==================== JavaScript ==================== -->
+    <script src="js/strategies-data.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
