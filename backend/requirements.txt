@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+openpyxl
+pandas
+numpy
+matplotlib
+zhipuai
+passlib
+python-jose
+pydantic

@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+uploads/*.xlsx
+uploads/*.xls
+uploads/*.csv
+.venv/
+venv/
+node_modules/
+.DS_Store
